@@ -45,10 +45,7 @@ rzp.open()
       setShowLogin(true)
     }
 
-// Before sending request
-const headers = token ? { Authorization: `Bearer ${token}` } : {};
-const { data } = await axios.post(backendUrl + '/api/user/pay-razor', { planId }, { headers });
-
+    const {data} = await axios.post(backendUrl  + '/api/user/pay-razor' , {planId} , {headers : {token}})
     if(data.success){
       initPay(data.order)
     }
