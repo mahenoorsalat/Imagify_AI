@@ -21,7 +21,7 @@ const BuyCredit = () => {
     receipt : order.receipt , 
     handler : async (response)=>{
       try{
-        const {data} = await axios.post(backendUrl + '/api/user/verify-razor' , response , {headers : {token}})
+        const {data} = await axios.post(backendUrl + 'api/user/verify-razor' , response , {headers : {token}})
         if(data.success){
           loadCreditsData()
           navigate('/')
@@ -45,7 +45,7 @@ rzp.open()
       setShowLogin(true)
     }
 
-    const {data} = await axios.post(backendUrl  + '/api/user/pay-razor' , {planId} , {headers : {token}})
+    const {data} = await axios.post(backendUrl  + 'api/user/pay-razor' , {planId} , {headers : {token}})
     if(data.success){
       initPay(data.order)
     }

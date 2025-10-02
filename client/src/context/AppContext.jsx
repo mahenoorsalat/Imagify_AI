@@ -16,7 +16,7 @@ const AppContextProvider = (props) => {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const loadCreditsData = async () => {
         try {
-            const { data } = await axios.get(backendUrl + '/api/user/credits', { headers: { token } })
+            const { data } = await axios.get(backendUrl + 'api/user/credits', { headers: { token } })
             if (data.success) {
                 setCredit(data.credits)
                 setUser(data.user)
@@ -30,7 +30,7 @@ const AppContextProvider = (props) => {
 
     const generateImage = async (prompt) =>{
         try{
-         const {data} = await axios.post(backendUrl + '/api/image/generateImage' , {prompt} , {headers:{token}})
+         const {data} = await axios.post(backendUrl + 'api/image/generateImage' , {prompt} , {headers:{token}})
          if(data.success){
             loadCreditsData();
             return data.resultImage;
