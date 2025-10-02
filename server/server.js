@@ -22,8 +22,8 @@ app.use(express.urlencoded({extended:true}))
 app.use(cors());
 
 
-app.use('/user' , userRouter)
-app.use('/image' , ImageRouter)
+app.use('/api/user' , userRouter) // FIX: Restored /api prefix
+app.use('/api/image' , ImageRouter) // FIX: Restored /api prefix
 
 app.get('/' , (req , res)=>{
     res.send("API Working Mahi")
