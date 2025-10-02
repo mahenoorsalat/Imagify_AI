@@ -21,9 +21,9 @@ app.use(express.urlencoded({extended:true}))
 // 3. CORS
 app.use(cors());
 
-// --- Routes ---
-app.use('api/user' , userRouter)
-app.use('api/image' , ImageRouter)
+
+app.use('/user' , userRouter)
+app.use('/image' , ImageRouter)
 
 app.get('/' , (req , res)=>{
     res.send("API Working Mahi")
