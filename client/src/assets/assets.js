@@ -80,22 +80,22 @@ export const testimonialsData = [
 ]
 
 export const plans = [
-    {
-      id: 'Basic',
-      price: 50,
-      credits: 100,
-      desc: 'Best for personal use.'
-    },
-    {
-      id: 'Advanced',
-      price: 100,
-      credits: 500,
-      desc: 'Best for business use.'
-    },
-    {
-      id: 'Business',
-      price: 300,
-      credits: 5000,
-      desc: 'Best for enterprise use.'
-    },
-  ]
+  {
+    id: 'Basic',
+    price: 4150, // 50 USD ≈ ₹4150
+    credits: 100,
+    desc: 'Best for personal use.'
+  },
+  {
+    id: 'Advanced',
+    price: 8300, // 100 USD ≈ ₹8300
+    credits: 500,
+    desc: 'Best for business use.'
+  },
+  {
+    id: 'Business',
+    price: 24900, // 300 USD ≈ ₹24,900
+    credits: 5000,
+    desc: 'Best for enterprise use.'
+  },
+]
