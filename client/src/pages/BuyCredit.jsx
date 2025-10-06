@@ -81,7 +81,7 @@ rzp.open()
             <p className='mt-3 mb-1 font-semibold'>{Item.id}</p>
             <p className='text-sm'>{Item.desc}</p>
             <p className='mt-6'>
-              <span className='text-3xl font-medium'>${Item.price}</span> / {Item.credits}
+              <span className='text-3xl font-medium'>₹{Item.price}</span> / {Item.credits}
             </p>
             <button onClick={()=>paymentRazorpay(Item.id)} className='w-full bg-gray-800 text-white mt-8 text-sm rounded-md py-2.5 min-w-52'>{user ? 'Purchase' : 'Get Started'}</button>
           </div>
