@@ -5,15 +5,12 @@ import connectDB from './config/mongodb.js';
 import userRouter from './routes/userRoutes.js';
 import ImageRouter from './routes/imageRoutes.js';
 
-
-// [CRITICAL FIX 3: TOP-LEVEL AWAIT] The database connection should happen here for cold start, and 
-// is idempotent thanks to the update in config/mongodb.js.
-await connectDB()
-
-// const PORT = process.env.PORT || 4000; // Removed as it's not needed for Vercel export
+// The app instance should be defined before connection logic for Vercel
 const app = express();
 
-// --- Move body parsers to the top ---
+// Await the database connection
+await connectDB()
+
 
 // 1. JSON body parser (for your prompt data)
 app.use(express.json());
@@ -21,11 +18,12 @@ app.use(express.json());
 // 2. URL-encoded body parser (for form data)
 app.use(express.urlencoded({extended:true}))
 
-// [CRITICAL FIX 2: CORS] Explicitly allow your frontend origin to fix CORS preflight errors.
+// 3. CRITICAL CORS FIX: Explicitly allow the frontend origin
+// This addresses the 'No Access-Control-Allow-Origin header' error.
 app.use(cors({
-    origin: 'https://imagify-ai-six.vercel.app', 
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
-    credentials: true, 
+    origin: 'https://imagify-ai-six.vercel.app', // <-- This is your frontend domain
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Ensure OPTIONS for preflight is included
+    credentials: true, // Needed if you are sending cookies or authorization tokens
 }));
 
 
@@ -36,10 +34,11 @@ app.get('/' , (req , res)=>{
     res.send("API Working Mahi")
 })
 
-// [CRITICAL FIX 1: SERVERLESS] REMOVE app.listen() for Vercel serverless environment
-// app.listen(PORT , ()=>{
-//     console.log("APP IS LISTENINIG AT PORT: " + PORT)
-// })
+// CRITICAL VERCELL FIX: Remove app.listen() for serverless deployment
+// and export the app instance.
+// const PORT = process.env.PORT || 4000; // REMOVED
+// app.listen(PORT , ()=>{ // REMOVED
+//     console.log("APP IS LISTENINIG AT PORT: " + PORT) // REMOVED
+// }) // REMOVED
 
-// [CRITICAL FIX 1: SERVERLESS] EXPORT the app instance for Vercel.
-export default app;
+export default app; 
