@@ -1,13 +1,14 @@
 import mongoose, { mongo } from "mongoose";
 
-const connectDB = async ()=>{
-    mongoose.connection.on("connected" ,()=>{
+const connectDB = async () => {
+    mongoose.connection.on("connected", () => {
 
         console.log("Database connected")
- 
-    })
 
-    await mongoose.connect(`${process.env.MONGODB_URI}/imagify`)
+    })
+    const uri = `${process.env.MONGODB_URI}/imagify`;
+    console.log("Attempting to connect to MongoDB URI:", uri);
+    await mongoose.connect(uri)
 }
 
 export default connectDB;
