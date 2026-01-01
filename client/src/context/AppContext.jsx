@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { createContext } from 'react';
 import { toast } from 'react-toastify';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export const AppContext = createContext();
 
@@ -13,7 +13,9 @@ const AppContextProvider = (props) => {
     const [showLogin, setShowLogin] = useState(false);
     const [token, setToken] = useState(localStorage.getItem('token') || '');
     const [credit, setCredit] = useState(0)
-    const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+    // const backendUrl = import.meta.env.VITE_BACKEND_URL;
+    const backendUrl = 'http://localhost:4000/';
     const loadCreditsData = async () => {
         try {
             const { data } = await axios.get(backendUrl + 'api/user/credits', { headers: { token } })
@@ -28,21 +30,21 @@ const AppContextProvider = (props) => {
         }
     }
 
-    const generateImage = async (prompt) =>{
-        try{
-         const {data} = await axios.post(backendUrl + 'api/image/generateImage' , {prompt} , {headers:{token}})
-         if(data.success){
-            loadCreditsData();
-            return data.resultImage;
-         }else{
-            toast.error(data.message)
-            loadCreditsData();
-            if(data.creditBalance === 0){
-                navigate('/buy')
+    const generateImage = async (prompt) => {
+        try {
+            const { data } = await axios.post(backendUrl + 'api/image/generateImage', { prompt }, { headers: { token } })
+            if (data.success) {
+                loadCreditsData();
+                return data.resultImage;
+            } else {
+                toast.error(data.message)
+                loadCreditsData();
+                if (data.creditBalance === 0) {
+                    navigate('/buy')
+                }
             }
-         }
-         console.log(data)
-        }catch(error){
+            console.log(data)
+        } catch (error) {
             toast.error(error.message)
         }
     }
@@ -70,7 +72,7 @@ const AppContextProvider = (props) => {
         token,
         setToken,
         loadCreditsData,
-        logout , 
+        logout,
         generateImage
     }
     return (
